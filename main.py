@@ -1,6 +1,7 @@
  from flask import Flask
+import random
 
-UPLOAD_FOLDER = r'C:\Users\smiles\Desktop\flaskfolder'
+UPLOAD_FOLDER = r'\cloud'
 
 app = Flask(__name__)
 app.secret_key = "secret key"
@@ -17,11 +18,11 @@ labels = {0:'Actini keratoses', 1:'Basal cell carcinoma', 2:'Benign keratosis', 
 #converting image to numpy array for processing
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 import numpy as np
-import cv2
-from keras.preprocessing import image
-from keras.models import load_model
+
+
+
 import matplotlib.pyplot as plt
-classifier = load_model('prototype4.h5')
+
 import os      
 labels = {0:'Actini keratoses', 1:'Basal cell carcinoma', 2:'Benign keratosis', 3:'dermatofibroma', 4:'melanoma', 5:'melanocytic nevi', 6:'Vascular lesions'}
 
@@ -46,19 +47,7 @@ def upload_file():
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 			img = plt.imread(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-			import numpy as np
-			import cv2
-			from keras.preprocessing import image
-			from keras.models import load_model
-			classifier = load_model('prototype4.h5')
-			img = cv2.resize(img, (100, 75))
-			test_image = image.img_to_array(img)
-			test_image = np.expand_dims(test_image, axis=0)
-			# image normalisation to reduce the range of pixel values
-			test_image = test_image / 255
-			print(np.shape(test_image))
-			result = classifier.predict(test_image)
-			disease_detected = labels[np.argmax(result[0], axis=0)]
+			disease_detected = labels[random.randint(1,8)]
 			print(disease_detected)
 			flash(disease_detected)
 			return redirect('/')
