@@ -11,17 +11,17 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 import os
 #import magic
 import urllib.request
-from app import app
+
 from flask import Flask, flash, request, redirect, render_template
 from werkzeug.utils import secure_filename
 labels = {0:'Actini keratoses', 1:'Basal cell carcinoma', 2:'Benign keratosis', 3:'dermatofibroma', 4:'melanoma', 5:'melanocytic nevi', 6:'Vascular lesions'}
 #converting image to numpy array for processing
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-import numpy as np
 
 
 
-import matplotlib.pyplot as plt
+
+
 
 import os      
 labels = {0:'Actini keratoses', 1:'Basal cell carcinoma', 2:'Benign keratosis', 3:'dermatofibroma', 4:'melanoma', 5:'melanocytic nevi', 6:'Vascular lesions'}
